@@ -1,10 +1,19 @@
 # Session State
 
-> This file is a compact continuation checkpoint. It must contain facts already accepted by the project, not private chain-of-thought or chat summaries.
+> Compact continuation checkpoint for G4DNailTime.
+>
+> Store only accepted/verified project facts required to resume work.
+> Do not store private chain-of-thought, speculative reasoning, or long chat summaries.
+
+## Project
+
+- Canonical name: `G4DNailTime`
+- Aliases: `NailTime`, `RickNailTime`
+- Repository: `ricksolucoes/NailTime`
 
 ## Lifecycle Stage
 
-NOT_STARTED
+`NOT_STARTED`
 
 ## Current Scope
 
@@ -25,7 +34,8 @@ None.
 ## Last Verified Repository State
 
 - Branch: `main`
-- Verification: update when inspected
+- Commit/SHA: unknown
+- Verification: update after read-only inspection
 
 ## Last Verified TDD State
 
@@ -33,7 +43,7 @@ None.
 - GREEN: not started
 - REFACTOR: not started
 
-## Accepted Decisions Needed for Continuation
+## Accepted Decisions Required for Continuation
 
 None yet.
 
@@ -48,5 +58,12 @@ Start or resume the lifecycle stage explicitly selected by the user.
 ## Files That Must Be Read Next
 
 - `agent.md`
-- relevant files under `docs/assistant/`
+- `docs/assistant/project-identity.md`
+- `docs/assistant/language-policy.md`
+- `docs/assistant/behavior.md`
+- `docs/assistant/repository-policy.md`
+- `docs/assistant/external-tools-policy.md`
+- `docs/assistant/tdd-policy.md`
+- `docs/assistant/context-recovery.md`
+- `docs/prompts/_common.md`
 - lifecycle artifacts required by the selected stage

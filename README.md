@@ -1,49 +1,97 @@
-# NailTime
+# G4DNailTime
 
-NailTime é uma plataforma de agendamento para manicure e nail designer, construída com React, Node.js, TypeScript e PostgreSQL.
+G4DNailTime is a manicure and nail designer scheduling platform built around a public booking experience and an administrative management area.
 
-O sistema possui uma área pública para apresentação dos serviços, galeria e agendamento de horários, além de uma área administrativa para gerenciamento da agenda, serviços, disponibilidade, bloqueios, imagens e personalização da identidade visual do negócio.
+The current GitHub repository is:
 
-## Fonte de verdade do projeto
+`ricksolucoes/NailTime`
 
-Este repositório é o ponto central de comunicação entre todas as etapas de desenvolvimento.
+Accepted project aliases are:
 
-As conversas utilizadas durante o desenvolvimento não dependem de memória compartilhada. Cada etapa deve utilizar os documentos versionados neste repositório como fonte de verdade.
+- `G4DNailTime`
+- `NailTime`
+- `RickNailTime`
 
-O fluxo obrigatório do projeto é:
+All three names refer to the same project. `G4DNailTime` is the canonical project and commercial product name.
 
-Constituição  
-→ Spec  
-→ Clarificação  
-→ Planejamento  
-→ Implementação com TDD  
-→ Análise / Validação
+The business name, logo, slogan, colors, images, contacts, and other branding shown to an end customer are configurable application data and are not the same thing as the G4DNailTime software product identity.
 
-Os principais artefatos são mantidos em:
+## Project Source of Truth
+
+This repository is the shared source of truth between independent ChatGPT conversations.
+
+Chat history and model memory are not authoritative project records.
+
+The mandatory lifecycle is:
+
+`Constitution -> Specification -> Clarification -> Planning -> Implementation with strict TDD -> Analysis / Validation`
+
+Project decisions and continuation state must be persisted as repository artifacts rather than depending on a previous conversation.
+
+## Language Boundary
+
+The project has an immutable language rule:
+
+- all direct interaction with the user is in Brazilian Portuguese (`pt-BR`);
+- all internal project artifacts are written in English.
+
+Internal artifacts include source code, tests, documentation, prompts, architecture records, requirements, tasks, audits, ADRs, and assistant operating files.
+
+## Repository Safety Model
+
+ChatGPT access to this repository is strictly read-only.
+
+The assistant may inspect repository content but must never create or mutate files, commits, branches, pull requests, issues, releases, comments, or any other remote state.
+
+Every proposed change is returned to the user for manual review, application, execution, testing, and approval.
+
+Project code or repository content must not be transmitted to external services. External documentation tools may be used only with generic technical queries that do not disclose project information.
+
+## Project Operating Files
 
 ```text
+agent.md
+
 docs/
+├── assistant/
+│   ├── project-identity.md
+│   ├── language-policy.md
+│   ├── behavior.md
+│   ├── repository-policy.md
+│   ├── external-tools-policy.md
+│   ├── tdd-policy.md
+│   ├── context-recovery.md
+│   ├── session-state.md
+│   └── handoff-template.md
+│
+├── prompts/
+│   ├── _common.md
+│   ├── 01-constitution.md
+│   ├── 02-specification.md
+│   ├── 03-clarification.md
+│   ├── 04-planning.md
+│   ├── 05-implementation.md
+│   └── 06-validation.md
+│
+├── adr/
 ├── constitution.md
 ├── spec.md
 ├── clarification.md
 ├── decisions.md
 ├── plan.md
 ├── implementation-report.md
-├── audit.md
-└── adr/
+└── audit.md
 ```
 
-Cada etapa deve ler apenas os documentos necessários, produzir seu artefato correspondente e salvá-lo no repositório para utilização pela próxima etapa.
+Lifecycle artifacts are created only when their corresponding stage produces an accepted proposal and the user applies it.
 
-## Princípio de rastreabilidade
+## Traceability
 
-Decisões e implementações devem manter relação explícita entre:
+Engineering work must preserve explicit traceability:
 
-```text
-REQ → TASK → TEST → AUDIT
-```
+`REQ -> TASK -> TEST -> AUDIT`
 
-Exemplo:
+Example:
 
 ```text
 REQ-APT-014
@@ -55,4 +103,4 @@ TEST-APT-032
 AUDIT-APT-014
 ```
 
-O histórico das conversas não é considerado documentação oficial do projeto. Decisões relevantes devem ser registradas nos arquivos do repositório.
+A project decision that exists only in chat is not an authoritative project decision until it is represented in the appropriate repository artifact.

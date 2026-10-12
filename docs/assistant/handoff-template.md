@@ -1,4 +1,4 @@
-# Handoff Template
+# G4DNailTime Handoff
 
 ## From Stage
 
@@ -7,6 +7,12 @@
 ## To Stage
 
 `<stage>`
+
+## Repository State
+
+- Branch: `<branch>`
+- Commit/SHA: `<sha or unknown>`
+- Verified by: `<user evidence / read-only inspection / CI>`
 
 ## Authoritative Inputs
 
@@ -32,6 +38,12 @@
 
 - `<test/build/typecheck/lint/CI evidence>`
 
+## TDD State
+
+- RED: `<verified / not applicable / pending>`
+- GREEN: `<verified / pending>`
+- REFACTOR: `<verified / pending / not required>`
+
 ## Unresolved Questions
 
 - `<question>`
@@ -43,6 +55,14 @@
 ## Explicitly Out of Scope
 
 - `<item>`
+
+## Next Permitted Action
+
+`<single next action>`
+
+## Files to Read
+
+- `<path>`
 
 ## Expected Output Artifact
 

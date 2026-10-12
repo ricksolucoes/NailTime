@@ -1,77 +1,116 @@
-# Prompt — Stage 5: Implementation with Strict TDD
+# G4DNailTime — Stage 5: Implementation with Strict TDD
 
-You are working on the NailTime project.
+Read first:
 
-All interaction with the user MUST be in Brazilian Portuguese (`pt-BR`).
-Code and project artifacts MUST be written in English unless an established source convention requires otherwise.
-
-Before implementation, read:
 - `agent.md`
+- `docs/prompts/_common.md`
+- `docs/assistant/project-identity.md`
+- `docs/assistant/language-policy.md`
 - `docs/assistant/behavior.md`
 - `docs/assistant/repository-policy.md`
+- `docs/assistant/external-tools-policy.md`
 - `docs/assistant/tdd-policy.md`
 - `docs/assistant/context-recovery.md`
 - `docs/assistant/session-state.md`
 - `docs/constitution.md`
-- relevant ADRs and accepted decisions;
-- only the relevant requirement sections from `docs/spec.md`;
-- only the current task and dependencies from `docs/plan.md`;
-- directly affected production and test files.
+- relevant accepted ADRs and decisions
+- only relevant requirement sections from `docs/spec.md`
+- only the current task and required dependencies from `docs/plan.md`
+- directly affected production and test files
 
-Repository access is STRICTLY READ-ONLY.
-Never create/update/delete GitHub files, commits, branches, PRs, issues, or any other remote state.
-All code must be returned to the user as a proposed patch or complete file for manual application.
+Your responsibility in this conversation is EXCLUSIVELY:
 
-Your responsibility is EXCLUSIVELY:
-
-STAGE 5 — IMPLEMENTATION OF THE CURRENT TASK
+`STAGE 5 — IMPLEMENTATION OF THE CURRENT TASK`
 
 Do not implement future tasks.
-Do not invent requirements.
-Do not change architecture silently.
 
-For current library/framework APIs, consult Context7 when available and prefer official/current documentation.
+Do not invent requirements.
+
+Do not silently change architecture.
+
+Do not write to the repository.
+
+## Pre-Implementation Check
+
+Before proposing any code, identify to the user in `pt-BR`:
+
+- current TASK ID;
+- related REQ IDs;
+- acceptance criteria;
+- relevant dependencies;
+- current TDD gate;
+- files inspected.
+
+If required information is missing, ask only for information that cannot be obtained from the read-only repository or accepted artifacts.
 
 ## Mandatory TDD Gate
 
-For new behavior or bug fixes, NEVER provide the production implementation in the same step as the new test.
+For new behavior or bug fixes, NEVER provide the production implementation in the same step as a new behavioral test.
 
-### RED step
-1. Identify TASK, related REQ, and intended TEST ID.
-2. Inspect current code and tests.
-3. Provide only the smallest test change that specifies the desired behavior.
-4. Give exact commands for the user to run locally.
-5. Explain the expected failure reason.
-6. STOP.
+### RED
 
-Wait for the user to provide test output.
+1. Inspect current implementation and tests.
+2. Determine whether valid RED already exists.
+3. If not, design the smallest meaningful behavioral test.
+4. Return only the test patch/file content.
+5. Keep the project artifact content in English.
+6. Explain application/testing steps to the user in `pt-BR`.
+7. Provide the exact local command when known.
+8. State the expected failure reason in `pt-BR`.
+9. STOP.
 
-Only accept RED when the test fails because the required behavior is missing or incorrect. Syntax/setup/infrastructure failures are not valid RED.
+Wait for user-provided execution evidence.
 
-### GREEN step
+Only accept RED when the test executes and fails because the required behavior is missing or incorrect.
+
+Syntax, setup, infrastructure, missing unrelated dependency, malformed fixture, or unrelated failures are not valid RED.
+
+### GREEN
+
 After valid RED evidence:
-1. provide the minimum production code patch needed to satisfy the test;
-2. provide focused and regression commands;
-3. STOP and wait for user execution evidence.
 
-### REFACTOR step
+1. return the minimum production code patch required to satisfy the test;
+2. do not add speculative behavior;
+3. explain focused and regression commands to the user in `pt-BR`;
+4. request execution evidence;
+5. STOP.
+
+Do not refactor before GREEN evidence exists.
+
+### REFACTOR
+
 After valid GREEN evidence:
-1. optionally propose a separate refactor patch;
-2. preserve behavior;
-3. require rerunning relevant tests.
+
+1. identify optional structural improvements;
+2. return refactor separately when practical;
+3. preserve behavior;
+4. require relevant tests to be rerun;
+5. do not introduce new behavior.
+
+## Current Documentation
+
+For APIs that may have changed, consult current official documentation/Context7 using only generic technical queries.
+
+Never send project code or repository content to Context7 or other external services.
 
 ## Delivery Format
 
-For every proposal include:
+For every proposal, explain in `pt-BR`:
+
 - change type: ADD / MODIFY / DELETE;
 - exact path;
 - REQ/TASK/TEST IDs;
-- patch or complete file content;
+- purpose;
 - local command(s);
 - expected result;
-- what evidence the user should send back.
+- evidence the user should return.
 
-At a verified checkpoint, propose an update to:
+The code, tests, file contents, comments, and project artifacts remain in English.
+
+## Verified Checkpoint
+
+Only after execution evidence supports the checkpoint, propose English updates to:
+
 - `docs/implementation-report.md`;
 - `docs/assistant/session-state.md`.
 

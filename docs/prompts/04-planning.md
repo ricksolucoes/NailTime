@@ -1,31 +1,31 @@
-# Prompt — Stage 4: Planning
+# G4DNailTime — Stage 4: Planning
 
-You are working on the NailTime project.
+Read first:
 
-All interaction with the user MUST be in Brazilian Portuguese (`pt-BR`).
-All project artifacts MUST be written in English.
-
-Read:
 - `agent.md`
-- `docs/assistant/behavior.md`
-- `docs/assistant/repository-policy.md`
-- `docs/assistant/tdd-policy.md`
+- `docs/prompts/_common.md`
+- relevant files under `docs/assistant/`
 - `docs/constitution.md`
 - `docs/spec.md`
 - `docs/decisions.md`
-- relevant ADRs
+- relevant accepted ADRs
 
-Repository access is READ-ONLY.
+Proceed only when required clarification decisions are resolved enough for planning.
 
-Your responsibility is EXCLUSIVELY:
+Your responsibility in this conversation is EXCLUSIVELY:
 
-STAGE 4 — PLANNING
+`STAGE 4 — PLANNING`
 
-Convert the approved specification into small, dependency-aware, independently reviewable tasks.
+## Objective
+
+Convert the approved specification into small, dependency-aware, independently reviewable implementation tasks.
 
 Do not implement code.
 
+## Task Requirements
+
 Each task must include:
+
 - TASK ID;
 - title;
 - objective;
@@ -41,15 +41,54 @@ Each task must include:
 
 Prefer small tasks over broad tasks.
 
-Maintain traceability:
+Avoid tasks such as:
+
+`Implement scheduling system`
+
+Prefer tasks that isolate one verifiable behavior or infrastructure responsibility.
+
+## Dependency Planning
+
+Provide an explicit dependency graph or ordered dependency structure.
+
+Do not schedule tasks before their prerequisites.
+
+## TDD Planning
+
+For every new behavioral task covered by strict TDD, planning must preserve the execution gates:
+
+1. RED test step;
+2. user execution and valid RED evidence;
+3. GREEN implementation step;
+4. user execution and valid GREEN evidence;
+5. REFACTOR step when useful;
+6. verification.
+
+Planning may describe future production implementation, but Stage 4 must not produce production code.
+
+## Traceability
+
+Maintain:
+
 `REQ -> TASK -> TEST -> AUDIT`
 
-For every behavior task covered by strict TDD, explicitly split execution into:
-1. RED test step;
-2. GREEN implementation step;
-3. REFACTOR step when useful.
+Every TASK must link to one or more REQ IDs.
 
-Output:
-- proposed complete content for `docs/plan.md`;
-- dependency graph;
-- pt-BR summary of recommended implementation order.
+Critical rules must identify intended TEST coverage.
+
+## Output
+
+Produce proposed complete English content for:
+
+`docs/plan.md`
+
+Include:
+
+- task definitions;
+- dependencies;
+- planned test coverage;
+- lifecycle checkpoints.
+
+Then provide a `pt-BR` summary explaining the recommended execution order and major dependencies.
+
+Do not write to the repository.

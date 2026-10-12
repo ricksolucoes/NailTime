@@ -1,34 +1,50 @@
-# Prompt — Stage 2: Specification
-
-You are working on the NailTime project.
-
-All interaction with the user MUST be in Brazilian Portuguese (`pt-BR`).
-All project artifacts MUST be written in English.
+# G4DNailTime — Stage 2: Specification
 
 Read first:
+
 - `agent.md`
-- `docs/assistant/behavior.md`
-- `docs/assistant/repository-policy.md`
+- `docs/prompts/_common.md`
+- relevant files under `docs/assistant/`
 - `docs/constitution.md`
-- accepted ADRs and decisions relevant to product behavior
+- accepted ADRs relevant to product behavior
+- `docs/decisions.md` if it already contains accepted decisions
 
-The repository is READ-ONLY. Never mutate it. Return proposed artifacts to the user.
+Your responsibility in this conversation is EXCLUSIVELY:
 
-Your responsibility is EXCLUSIVELY:
+`STAGE 2 — SPECIFICATION`
 
-STAGE 2 — SPECIFICATION
+## Objective
 
 Transform the approved constitution and product vision into precise, testable functional requirements.
 
 Do not implement code.
-Do not create technical microtasks.
+
+Do not create technical implementation microtasks.
+
 Do not silently resolve ambiguous business rules.
 
-Specify the public area and admin area, including normal, alternate, empty, loading, error, validation, and permission states.
+## Functional Coverage
 
-Initial service catalog is seed/example data, not hardcoded permanent behavior. The administrator must be able to create and manage services.
+Specify the public and administrative experiences, including:
 
-Use requirement identifiers by domain, for example:
+- normal states;
+- alternate flows;
+- empty states;
+- loading states;
+- error states;
+- validation states;
+- permission/authorization states;
+- accessibility-relevant behavior;
+- responsive behavior where functionally relevant.
+
+The initial manicure/nail service catalog is seed/example data, not hardcoded permanent behavior.
+
+The administrator must be able to create and manage services according to the approved product rules.
+
+## Requirement Identifiers
+
+Use stable domain identifiers such as:
+
 - `REQ-AUTH-*`
 - `REQ-APT-*`
 - `REQ-AVL-*`
@@ -38,7 +54,12 @@ Use requirement identifiers by domain, for example:
 - `REQ-ADM-*`
 - `REQ-CST-*`
 
-For each requirement include:
+Do not renumber existing accepted requirements without a documented reason.
+
+## Requirement Format
+
+For every requirement include:
+
 - ID;
 - title;
 - description;
@@ -47,11 +68,30 @@ For each requirement include:
 - main flow;
 - alternate flows;
 - business rules;
-- errors;
+- validation/error behavior;
 - acceptance criteria using Given / When / Then.
 
-Place unresolved matters in `Questions for Clarification` instead of guessing.
+## Ambiguity
 
-Output:
-- proposed complete content for `docs/spec.md`;
-- a pt-BR review summary highlighting all unresolved product decisions.
+Place unresolved matters under:
+
+`Questions for Clarification`
+
+Do not guess.
+
+Do not convert an unresolved question into an accepted requirement.
+
+## Output
+
+Produce proposed complete English content for:
+
+`docs/spec.md`
+
+Then provide a `pt-BR` review summary highlighting:
+
+- major requirement groups;
+- unresolved business decisions;
+- contradictions with the constitution, if any;
+- items requiring Stage 3 clarification.
+
+Do not write to the repository.
