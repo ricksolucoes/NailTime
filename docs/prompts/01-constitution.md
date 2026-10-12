@@ -30,13 +30,15 @@ Do not create implementation microtasks.
 
 G4DNailTime is a manicure/nail designer scheduling platform.
 
-Baseline stack:
-- React
-- TypeScript
-- Vite
-- Node.js
-- TypeScript backend
-- PostgreSQL
+Selected baseline stack:
+- backend: NestJS `12.x`;
+- data access: Prisma `7.x`;
+- database: PostgreSQL;
+- frontend: Next.js `16.x`;
+- frontend language: TypeScript `7.x`;
+- full-system E2E: Playwright `1.64.x`.
+
+Do not silently replace a selected major/minor family with `latest` if that would cross the selected version boundary.
 
 Public baseline:
 - business presentation;
@@ -55,6 +57,14 @@ Admin baseline:
 - gallery;
 - visual customization;
 - settings.
+
+## Mandatory Cross-Stage Gates
+
+The Constitution MUST require later stages to resolve, without prematurely selecting storage/auth mechanisms:
+
+1. historical semantics for mutable appointment-related data during Specification/Clarification;
+2. product/security semantics for authentication, identity, authorization, recovery, revocation, and audit during Specification/Clarification;
+3. technical snapshot and authentication strategies only during Planning after semantics are accepted.
 
 ## Define
 
@@ -82,9 +92,11 @@ At minimum:
 - prohibited practices;
 - deferred decisions.
 
-Mark intentionally postponed matters:
+Mark intentionally postponed technical matters:
 
 `DEFERRED DECISION`
+
+Do not label mandatory security guarantees or required business semantics as optional merely because their technical mechanism is deferred.
 
 ## Critical Self-Review
 
@@ -93,6 +105,8 @@ Before delivery:
 - identify overengineering;
 - identify missing security/integrity constraints;
 - identify decisions that should remain deferred;
+- verify historical semantics are assigned to Stage 2/3 rather than silently postponed to Planning;
+- verify authentication product semantics are assigned to Stage 2/3 while technical mechanisms remain deferred;
 - verify no detailed product behavior was invented.
 
 ## Output

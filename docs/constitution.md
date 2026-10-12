@@ -3,7 +3,7 @@
 ## Document Control
 
 - Lifecycle stage: `STAGE 1 — CONSTITUTION`
-- Status: `ACCEPTED`
+- Status: `PROPOSED`
 - Canonical product name: `G4DNailTime`
 - Authoritative repository: `ricksolucoes/NailTime`
 - Governing directive: `agent.md`
@@ -29,17 +29,30 @@ Until all three conditions are satisfied, Stage 2 MUST NOT be treated as active.
 
 ## 2. Baseline Technology Boundary
 
-The baseline technology family is:
+The selected baseline technology stack is:
 
-- frontend: React + TypeScript + Vite;
-- backend: Node.js + TypeScript;
-- database: PostgreSQL.
+- backend: NestJS `12.x`;
+- backend data access: Prisma `7.x`;
+- database: PostgreSQL;
+- frontend: Next.js `16.x`;
+- frontend language: TypeScript `7.x`;
+- full-system end-to-end testing: Playwright `1.64.x`.
 
-Changing this baseline requires an explicit accepted architectural decision.
+These major/minor families are project constraints, not suggestions. Changing them requires an explicit accepted architectural decision.
 
-`DEFERRED DECISION`: exact backend web framework, ORM/query layer, validation library, authentication library/provider, test runner, browser test framework, component library, storage provider, deployment platform, and observability vendor.
+Dependency installation MUST pin versions compatible with these selected families. Tooling MUST NOT use an unconstrained `latest` tag when doing so could cross a selected major-version boundary.
+
+Prisma `7.x` is the selected data-access family. Planning and bootstrap work MUST verify the current Prisma 7 installation/migration guidance and explicitly select compatible Prisma 7 package versions rather than accidentally upgrading to a later major.
+
+Next.js is the frontend application framework. NestJS is the authoritative backend application framework. Next.js server capabilities MAY support frontend delivery concerns, but MUST NOT silently become a second source of domain authority or duplicate NestJS business rules.
+
+Prisma is the primary application data-access layer. Database-native PostgreSQL constraints or reviewed migration SQL MAY be used when required to enforce integrity that cannot be expressed safely through Prisma alone.
+
+`DEFERRED DECISION`: exact package patch versions inside the selected families; Node.js runtime version; package manager; repository/workspace layout; validation library; authentication library/provider; unit/integration test frameworks; component library; storage provider; deployment platform; and observability vendor.
 
 ## 3. Frontend Boundary
+
+The frontend is implemented with Next.js `16.x` and TypeScript `7.x`.
 
 The frontend is responsible for:
 
@@ -47,7 +60,7 @@ The frontend is responsible for:
 - collecting user input;
 - providing immediate, accessible client-side feedback;
 - managing presentation state;
-- invoking server APIs through explicit contracts;
+- invoking authoritative NestJS APIs through explicit contracts;
 - presenting loading, empty, success, and error states.
 
 The frontend MUST NOT be the authority for:
@@ -60,11 +73,15 @@ The frontend MUST NOT be the authority for:
 - upload trust decisions;
 - any rule whose violation could corrupt business state.
 
+Next.js Route Handlers, Server Actions, middleware/proxy features, or other server-side frontend capabilities MUST NOT bypass the NestJS domain authority for protected business mutations unless a later accepted ADR explicitly redefines the boundary.
+
 Client-side validation is a usability layer, not a security or integrity boundary.
 
 ## 4. Backend Boundary
 
-The backend is the authoritative application boundary for business operations.
+The backend is implemented with NestJS `12.x`, with Prisma `7.x` as the primary data-access layer and PostgreSQL as the authoritative persistent datastore.
+
+The NestJS backend is the authoritative application boundary for business operations.
 
 It MUST:
 
@@ -76,6 +93,8 @@ It MUST:
 - expose stable error semantics;
 - avoid leaking secrets or sensitive internals;
 - produce sufficient operational evidence for failures and security-relevant events.
+
+Direct database access from the browser/frontend is prohibited.
 
 Backend modules SHOULD separate transport concerns from domain rules and persistence concerns where doing so improves testability and integrity.
 
@@ -97,7 +116,7 @@ This list defines domain areas, not detailed behavior or data models.
 
 Cross-domain dependencies MUST be deliberate and minimal.
 
-## 6. Server Authority and Data Integrity
+## 6. Server Authority, Data Integrity, and Historical Semantics
 
 1. All state-changing business operations MUST be validated server-side.
 2. Integrity rules SHOULD be enforced as close to the data as practical when database constraints can prevent invalid states reliably.
@@ -107,7 +126,44 @@ Cross-domain dependencies MUST be deliberate and minimal.
 6. Destructive operations MUST not rely on UI affordances as their only safeguard.
 7. Historical business records MUST not become semantically false because mutable configuration later changes.
 
-`DEFERRED DECISION`: the exact historical snapshot strategy for mutable service, duration, price, branding, or scheduling data. The Specification/Planning stages must decide only what accepted requirements require.
+### 6.1 Mandatory Stage 2 Historical-Semantics Gate
+
+The Specification MUST explicitly determine the business semantics of mutable data referenced by an appointment before Planning chooses a persistence strategy.
+
+At minimum, Stage 2 MUST evaluate:
+
+- service name;
+- service price;
+- service duration;
+- service category or description, when relevant to historical meaning;
+- professional identity, when that concept exists;
+- appointment date/time and timezone;
+- customer data relevant to the appointment record;
+- appointment status and status transitions;
+- branding/presentation data only when a functional requirement requires historically preserving the presentation that existed at that time.
+
+For every evaluated item, the Specification MUST classify it as exactly one of:
+
+- `MUST preserve historical value`;
+- `MAY use current value`;
+- `NOT REQUIRED in historical snapshot`;
+- `UNRESOLVED — requires a business decision`.
+
+The Specification MUST define business semantics, not database schema or snapshot persistence mechanics.
+
+Examples of the required semantic level include questions such as whether an existing appointment keeps the price or duration that was accepted when it was created after the underlying service is later edited.
+
+A decision that changes customer-visible behavior, administrative history, financial meaning, audit meaning, scheduling integrity, or the interpretation of an existing appointment MUST NOT be guessed. It MUST be presented to the user in `pt-BR` with:
+
+- the decision required;
+- material impacts of each alternative;
+- a technical/product recommendation;
+- the exact business choice that requires user authority.
+
+Stage 4 Planning, and not Stage 2, MUST choose the technical persistence strategy after the historical semantics are accepted.
+
+`DEFERRED DECISION`: exact snapshot schema, denormalization strategy, versioning model, copy-on-write behavior, event/history tables, database constraints, and migration mechanics.
+
 
 ## 7. Input Validation
 
@@ -118,17 +174,65 @@ Cross-domain dependencies MUST be deliberate and minimal.
 5. Validation errors presented to users MUST be actionable without exposing sensitive implementation details.
 6. Validation logic that protects business invariants MUST be testable independently of the UI.
 
-## 8. Authentication and Authorization
+## 8. Authentication, Identity, and Authorization
+
+### 8.1 Constitutional Security Invariants
 
 1. Administrative capabilities MUST require authenticated access.
 2. Authorization MUST be checked server-side for every protected operation.
-3. Authentication state MUST use secure defaults appropriate to the selected mechanism.
-4. Passwords, tokens, session identifiers, reset secrets, and equivalent credentials MUST never be logged in plaintext.
-5. Authentication failures MUST not expose unnecessary account-existence or internal-state information.
-6. Session/token invalidation behavior MUST be defined before production readiness.
-7. Privilege checks MUST be deny-by-default.
+3. Administrative endpoints MUST require both authentication and the authorization applicable to the requested action.
+4. Authorization MUST be deny-by-default.
+5. Passwords MUST never be stored in plaintext.
+6. Passwords, tokens, session identifiers, reset secrets, MFA secrets, and equivalent credentials MUST never be logged in plaintext.
+7. Secrets MUST never live in source code.
+8. Authentication failures MUST not expose unnecessary account-existence or sensitive internal-state information.
+9. A deactivated or revoked administrative identity MUST NOT retain administrative access through an otherwise valid existing session/token.
+10. Authentication/session revocation semantics MUST fail safely.
+11. Abuse protection for authentication endpoints is required before production; the exact mechanism is deferred.
+12. Security guarantees are mandatory even when the concrete mechanism is deferred.
 
-`DEFERRED DECISION`: exact authentication mechanism, identity model, session strategy, password policy, recovery flow, multi-factor authentication, and role model. These require Specification/Clarification decisions when relevant.
+### 8.2 Mandatory Stage 2/3 Product-Semantics Gate
+
+The Specification, with Clarification when required, MUST define the product/security semantics before Planning selects an authentication implementation.
+
+At minimum, Stage 2 MUST evaluate:
+
+- who must authenticate;
+- whether the public area requires a customer account;
+- whether customers may book without registration;
+- who may access the administrative area;
+- whether there is one administrator or multiple administrative users;
+- whether separate professionals exist;
+- whether professionals have their own login;
+- whether different permission levels exist;
+- which actions require authentication;
+- which actions require specific authorization;
+- behavior for incorrect login;
+- required protection against abusive authentication attempts;
+- logout/session termination;
+- session expiration semantics;
+- password change;
+- access recovery;
+- access revocation;
+- behavior when a user is deactivated;
+- whether MFA is required;
+- minimum audit requirements for sensitive administrative actions.
+
+For every evaluated item, Stage 2 MUST classify it as exactly one of:
+
+- `REQUIRED`;
+- `NOT REQUIRED`;
+- `OPTIONAL`;
+- `UNRESOLVED — requires a business decision`.
+
+The assistant MUST NOT turn implementation choices into unnecessary product questions. In particular, Specification MUST NOT ask the user to choose between JWT, HttpOnly cookies, server-side sessions, OAuth/OIDC providers, token formats, password-hashing libraries, session stores, email providers, CSRF implementation mechanisms, token rotation mechanisms, or concrete MFA technologies unless an accepted business requirement genuinely makes that product-sensitive.
+
+When a product choice materially affects security, customer experience, administrative access, permissions, recovery, or audit behavior, the assistant MUST explain the risks and tradeoffs in `pt-BR`, provide a recommendation, and ask only for the actual business decision.
+
+Stage 4 Planning MUST choose the technical authentication strategy only after the accepted product/security semantics are available and after current official technology documentation has been checked.
+
+`DEFERRED DECISION`: JWT versus cookie/session mechanics; server-side session storage; OAuth/OIDC provider; authentication library; concrete password-hashing algorithm/library; token format; session storage technology; email provider; concrete CSRF mechanism; token rotation mechanism; and concrete MFA implementation.
+
 
 ## 9. Error Semantics
 
@@ -228,18 +332,25 @@ Exact breakpoint values are implementation details unless later requirements mak
 
 Testing MUST favor behavior and invariants over implementation details.
 
+Playwright `1.64.x` is the selected baseline for full-system end-to-end (E2E) testing.
+
 The project SHOULD use a layered strategy appropriate to the implemented scope:
 
 - unit tests for isolated domain logic where valuable;
-- integration tests for server/database boundaries and integrity rules;
+- integration tests for NestJS/Prisma/PostgreSQL boundaries and integrity rules;
 - API tests for transport contracts and authorization;
-- component tests for important UI behavior;
-- end-to-end tests for critical user journeys where justified;
-- concurrency tests for scheduling conflict guarantees.
+- frontend/component tests for important Next.js UI behavior;
+- Playwright E2E tests for critical full-system user journeys;
+- concurrency/integration tests for scheduling conflict guarantees.
+
+E2E coverage MUST NOT be used as a substitute for lower-level tests that can validate domain and database invariants more deterministically.
 
 Tests MUST be deterministic enough to run repeatedly without hidden ordering dependencies.
 
 Critical negative paths, boundary cases, and failure states MUST be tested, not only happy paths.
+
+`DEFERRED DECISION`: exact unit, integration, API, and component test frameworks where Playwright does not apply.
+
 
 ## 18. Strict Test-Driven Development
 
@@ -370,14 +481,16 @@ The following are prohibited unless a higher-priority accepted architectural dec
 
 The following categories are intentionally not decided by this Constitution:
 
-- exact backend framework;
-- ORM/query and migration tooling;
-- authentication/session implementation;
-- administrative role model;
+- exact package patch versions inside the selected major/minor families;
+- Node.js runtime version and package manager;
+- repository/workspace layout;
+- validation library;
+- authentication/session implementation mechanics;
+- administrative role model details that remain product-sensitive;
 - exact API style and versioning convention;
 - exact scheduling overlap/locking mechanism;
 - exact business timezone configuration model;
-- historical snapshot data model;
+- technical historical snapshot persistence strategy;
 - upload/storage/CDN/image pipeline;
 - detailed privacy retention/deletion policy;
 - backup/disaster recovery targets;
@@ -387,9 +500,16 @@ The following categories are intentionally not decided by this Constitution:
 - UI component/design system library;
 - exact accessibility conformance target;
 - detailed browser/device support matrix;
-- rate limiting and abuse-prevention thresholds.
+- rate limiting and abuse-prevention thresholds/mechanisms.
 
-Each deferred item MUST be resolved only when the proper lifecycle stage has enough accepted requirements and evidence. A deferred decision MUST NOT be silently guessed during implementation.
+Historical snapshot *business semantics* are NOT deferred to Planning: they MUST be resolved in Specification/Clarification.
+
+Authentication and identity *product/security semantics* are NOT deferred to Planning: they MUST be resolved in Specification/Clarification.
+
+Authentication security guarantees are NOT optional or deferred; only the implementation mechanism is deferred.
+
+Each remaining deferred technical item MUST be resolved only when the proper lifecycle stage has enough accepted requirements and evidence. A deferred decision MUST NOT be silently guessed during implementation.
+
 
 ## 27. Constitution Change Control
 

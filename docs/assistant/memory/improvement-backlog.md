@@ -29,10 +29,10 @@
 - Classification: `RECOMMENDED`
 - Origin: Stage 1 critical review
 - Related REQ/TASK: none
-- Problem/opportunity: the resume logic distinguishes absent/incomplete/accepted lifecycle artifacts, but only Constitution acceptance is currently made explicit in the proposed artifact. A consistent status convention for later lifecycle artifacts would reduce ambiguous stage detection.
-- Expected value: more deterministic autonomous recovery and fewer accidental lifecycle transitions.
-- Risk/cost: small documentation overhead; must not create unnecessary bureaucracy.
-- Suggested stage: refine during Specification/Planning only if ambiguity appears in practice.
+- Problem/opportunity: autonomous stage detection distinguishes absent/incomplete/accepted artifacts, but a consistent status convention across lifecycle artifacts would reduce ambiguity.
+- Expected value: deterministic recovery and fewer accidental lifecycle transitions.
+- Risk/cost: small documentation overhead.
+- Suggested stage: refine only if ambiguity appears in practice.
 - Status: `OPEN`
 
 ### IMP-QA-001 — Automate operating-policy consistency checks
@@ -40,8 +40,19 @@
 - Classification: `OPTIONAL`
 - Origin: Stage 1 critical review
 - Related REQ/TASK: none
-- Problem/opportunity: language, read-only, continuity, traceability, and required-file conventions are currently enforced through documentation review only.
-- Expected value: a lightweight repository check could detect missing required continuity files or malformed lifecycle metadata before handoff.
-- Risk/cost: adds maintenance and should not precede product work without demonstrated value.
-- Suggested stage: Planning or later tooling work, only if justified.
+- Problem/opportunity: selected stack boundaries, required continuity files, and lifecycle metadata are enforced primarily through documentation review.
+- Expected value: lightweight repository checks could detect stale baseline references, missing continuity files, or malformed lifecycle metadata.
+- Risk/cost: tooling maintenance; must not displace product delivery.
+- Suggested stage: Planning or later tooling work only if justified.
+- Status: `OPEN`
+
+### IMP-ARCH-001 — Reassess selected major versions only through explicit architecture change
+
+- Classification: `DEFERRED`
+- Origin: dependency/version critical review
+- Related REQ/TASK: none
+- Problem/opportunity: selected technology majors will eventually age while newer majors become available.
+- Expected value: controlled upgrades avoid accidental major-version drift while still allowing deliberate modernization.
+- Risk/cost: upgrade work and compatibility testing.
+- Suggested stage: future maintenance lifecycle through an explicit accepted architecture decision, not initial Planning.
 - Status: `OPEN`
