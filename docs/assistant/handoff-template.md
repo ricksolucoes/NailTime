@@ -36,19 +36,27 @@
 
 ## Verified Evidence
 
-- `<test/build/typecheck/lint/CI evidence>`
+- `<evidence>`
 
 ## TDD State
 
-- RED: `<verified / not applicable / pending>`
-- GREEN: `<verified / pending>`
-- REFACTOR: `<verified / pending / not required>`
+- RED: `<verified / pending / N/A>`
+- GREEN: `<verified / pending / N/A>`
+- REFACTOR: `<verified / pending / N/A>`
+
+## Mandatory Findings
+
+- `<finding>`
+
+## Improvement Backlog References
+
+- `<IMP-...>`
 
 ## Unresolved Questions
 
 - `<question>`
 
-## Scope for the Next Conversation
+## Scope for Next Conversation
 
 `<precise scope>`
 
@@ -64,6 +72,6 @@
 
 - `<path>`
 
-## Expected Output Artifact
+## Expected Output
 
-`<path or artifact>`
+`<artifact or checkpoint>`

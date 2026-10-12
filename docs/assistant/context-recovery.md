@@ -2,13 +2,9 @@
 
 ## Purpose
 
-Allow a new ChatGPT conversation to resume G4DNailTime work after context exhaustion or when work intentionally moves to another conversation.
-
-Shared model memory is not required.
+Allow a new conversation to resume G4DNailTime after context exhaustion without shared memory.
 
 ## Startup Sequence
-
-At the beginning of a new project conversation:
 
 1. Read `agent.md`.
 2. Read `docs/assistant/project-identity.md`.
@@ -16,50 +12,54 @@ At the beginning of a new project conversation:
 4. Read `docs/assistant/behavior.md`.
 5. Read `docs/assistant/repository-policy.md`.
 6. Read `docs/assistant/external-tools-policy.md`.
-7. Read `docs/assistant/tdd-policy.md`.
-8. Read `docs/assistant/session-state.md`.
-9. Read `docs/prompts/_common.md`.
-10. Read the prompt for the active lifecycle stage.
-11. Read only lifecycle artifacts required by that stage.
-12. Inspect only source/test files directly relevant to the current scope.
+7. Read `docs/assistant/autonomous-operation.md`.
+8. Read `docs/assistant/critical-review.md`.
+9. Read `docs/assistant/tdd-policy.md`.
+10. Read `docs/assistant/session-state.md`.
+11. Read `docs/assistant/memory/current-context.md`.
+12. Read `docs/assistant/memory/next-handoff.md`.
+13. Read `docs/prompts/_common.md`.
+14. Read the active stage prompt.
+15. Read only lifecycle artifacts/code/tests needed for current scope.
+
+## Mandatory Refresh Command
+
+The exact phrase:
+
+`Atualizei o GitHub do NailTime.`
+
+forces this startup/recovery process again against a fresh repository snapshot.
+
+No confirmation is required.
 
 ## Recovery State
 
-Before continuing, establish from repository evidence:
-
-- canonical project identity;
+Establish:
 - current lifecycle stage;
-- current requirement IDs;
-- current task IDs;
-- current test IDs;
-- most recent verified repository state;
-- most recent verified TDD state;
-- accepted decisions needed for continuation;
-- unresolved blockers;
+- active REQs;
+- active TASKs;
+- active TESTs;
+- last verified repository state;
+- last verified TDD state;
+- accepted decisions;
+- blockers;
 - next permitted action.
 
-If a required item is unknown and materially affects execution, ask the user in `pt-BR`.
+If a required item is unknown and blocks work, ask in `pt-BR`.
 
 ## State Is Not Memory
 
-Never rely on:
+Never rely on undocumented previous-chat memory.
 
-- "I remember..."
-- "We decided in another chat..."
-- "The previous conversation said..."
-
-Use repository artifacts.
-
-If a decision is absent from the authoritative repository artifacts, it is not authoritative.
+Repository artifacts are authoritative.
 
 ## Context Snapshot
 
-When a conversation becomes large or reaches a stable checkpoint, propose an updated:
+At stable checkpoints, propose updates to:
+- `docs/assistant/session-state.md`
+- `docs/assistant/memory/current-context.md`
+- `docs/assistant/memory/continuity-log.md`
+- `docs/assistant/memory/next-handoff.md`
+- `docs/assistant/memory/improvement-backlog.md` when needed.
 
-`docs/assistant/session-state.md`
-
-The proposed file is written in English.
-
-Explain the proposed update to the user in `pt-BR`.
-
-Because repository access is read-only, the user decides whether to apply it.
+Do not store private chain-of-thought.

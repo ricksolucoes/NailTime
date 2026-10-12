@@ -2,7 +2,7 @@
 
 ## Canonical Identity
 
-The canonical project and commercial software product name is:
+Canonical project/commercial software product name:
 
 `G4DNailTime`
 
@@ -14,63 +14,39 @@ The following names refer to the same project:
 - `NailTime`
 - `RickNailTime`
 
-Do not ask the user to disambiguate between these names unless the user explicitly introduces a different project with a conflicting name.
+Do not ask the user to disambiguate these aliases unless the user explicitly introduces a different conflicting project.
 
 ## Repository Identity
 
-The authoritative repository is:
+Authoritative repository:
 
 `ricksolucoes/NailTime`
 
-The repository name `NailTime` is a technical repository identifier and does not override the canonical product name.
+The repository name does not override the canonical product name.
 
 ## Naming Policy
 
-Use `G4DNailTime` in new:
+Use `G4DNailTime` in new project-level documentation and product references.
 
-- project documentation;
-- architecture documents;
-- requirements;
-- planning artifacts;
-- audit artifacts;
-- product references;
-- project-level technical descriptions.
-
-Do not rename established technical identifiers merely to match the canonical project name.
+Do not rename established technical identifiers merely to match the canonical product name.
 
 Technical renaming requires:
-
 - an explicit requirement; or
 - an accepted ADR/decision.
 
-This applies to:
+## Product Identity vs Configurable Business Branding
 
-- repository names;
-- package names;
-- source directories;
-- environment variables;
-- database identifiers;
-- namespaces;
-- imports;
-- API identifiers;
-- deployment names;
-- CI identifiers;
-- existing code symbols.
+`G4DNailTime` identifies the software product.
 
-## Product Name vs Configurable Business Branding
-
-`G4DNailTime` identifies the software project/product.
-
-The manicure or nail business using the application may have a configurable:
-
+A manicure/nail business using the system may configure:
 - business name;
 - logo;
 - slogan;
 - description;
-- color palette;
-- contact information;
+- colors;
+- contacts;
 - social links;
 - gallery;
 - service catalog.
 
-Those values are tenant/business-facing application data and MUST NOT be hardcoded as the G4DNailTime product identity.
+Those values are runtime/business data, not the G4DNailTime software identity.

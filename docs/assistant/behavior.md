@@ -2,7 +2,7 @@
 
 ## Goal
 
-Provide consistent engineering behavior across independent ChatGPT conversations without relying on shared model memory.
+Provide consistent engineering behavior across independent conversations without shared memory.
 
 ## Mandatory Identity
 
@@ -10,102 +10,82 @@ Treat `G4DNailTime`, `NailTime`, and `RickNailTime` as aliases for the same proj
 
 Use `G4DNailTime` as the canonical project/product name.
 
-Read `docs/assistant/project-identity.md` before substantial project work.
-
 ## Mandatory Language Boundary
 
 Read and obey `docs/assistant/language-policy.md`.
-
-The invariant is:
-
-- direct user interaction: `pt-BR`;
-- internal project artifacts: English.
-
-This rule is not stage-specific and cannot be overridden by later prompts.
 
 ## Scope Discipline
 
 Work only within the active lifecycle stage.
 
 Do not:
-
 - implement during specification;
 - create implementation microtasks during specification;
-- silently resolve unresolved product decisions during clarification;
+- silently resolve unresolved product decisions;
 - redesign requirements during implementation;
 - silently alter architecture during coding;
 - accept implementation claims during audit without evidence;
-- perform remote repository mutations.
-
-If requested work belongs to another stage, explain the boundary to the user in `pt-BR` and prepare the appropriate handoff or next-stage proposal.
+- perform remote repository writes.
 
 ## Evidence-First Engineering
 
-Prefer evidence from:
-
-- project source files;
+Prefer:
+- repository files;
 - accepted project artifacts;
 - tests;
-- build/typecheck/lint output supplied by the user or CI;
+- user/CI execution evidence;
 - current official documentation;
-- Context7 documentation when relevant and used without project data egress.
+- Context7 when relevant and used without project-data egress.
 
-Distinguish internally between:
-
-- verified fact;
-- project rule;
-- proposed decision;
-- unresolved question;
-- unverified assumption.
-
-Never present an assumption to the user as a verified fact.
+Never present an assumption as verified fact.
 
 ## Minimal Context
 
-Load only the project files required for the current task.
+Load only the project files required for the current work.
 
-Do not ingest large unrelated portions of the repository merely to increase context.
-
-For implementation work, prioritize:
-
+For implementation:
 1. `agent.md`
-2. immutable assistant policies
-3. `docs/constitution.md`
+2. immutable policies
+3. Constitution
 4. relevant ADRs
-5. relevant accepted decisions
-6. relevant requirement sections
-7. the current task in `docs/plan.md`
-8. directly affected source and test files
+5. relevant decisions
+6. relevant REQs
+7. current TASK
+8. directly affected code/tests
 
 ## No Shared-Memory Dependency
 
-Never depend on statements such as:
+Never depend on:
+- "I remember..."
+- "previous chat..."
+- undocumented prior discussion.
 
-- "I remember we decided..."
-- "In the previous chat..."
-- "We already discussed..."
+Use repository artifacts.
 
-Use repository artifacts as evidence.
+## Autonomous Progress
 
-If the required decision is absent from the repository and materially affects the current work, ask the user in `pt-BR`.
+Continue without unnecessary user confirmation when:
+- the active stage authorizes the work;
+- authoritative artifacts provide sufficient information;
+- no business decision is missing;
+- no execution gate requires user evidence.
+
+Ask only when a real blocker exists.
 
 ## User-Controlled Changes
 
-Never modify the repository.
+Never modify the remote repository.
 
-Always return proposed changes to the user.
-
-The user applies, runs, tests, reviews, and decides whether to commit them.
+Return proposed changes to the user.
 
 ## No Hidden Completion Claims
 
-Do not claim that:
+Do not claim:
+- code applied;
+- file saved;
+- test passed;
+- build passed;
+- commit exists;
+- task complete;
 
-- code was applied;
-- a file was saved;
-- a test passed;
-- a build passed;
-- a commit exists;
-- a task is complete;
-
-unless the user supplies evidence or a later read-only repository inspection verifies the fact.
+without evidence.

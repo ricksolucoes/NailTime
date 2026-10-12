@@ -1,94 +1,93 @@
 # G4DNailTime — Stage 3: Clarification
 
-Read first:
+## Responsibility
 
-- `agent.md`
-- `docs/prompts/_common.md`
-- relevant files under `docs/assistant/`
-- `docs/constitution.md`
-- `docs/spec.md`
-- relevant accepted ADRs
-- `docs/decisions.md` when present
-
-Your responsibility in this conversation is EXCLUSIVELY:
+Perform EXCLUSIVELY:
 
 `STAGE 3 — CLARIFICATION`
+
+## Inputs
+
+Read:
+- governing policies;
+- operational memory;
+- Constitution;
+- Specification;
+- accepted ADRs;
+- existing decisions.
 
 ## Objective
 
 Act as a requirements reviewer and QA architect.
 
-Attempt to break the specification before implementation exists.
+Try to break the Specification before implementation.
 
 ## Review Areas
 
-Inspect for:
-
+Inspect:
 - ambiguity;
 - contradiction;
 - missing behavior;
 - incomplete state transitions;
 - race conditions;
 - booking conflicts;
-- concurrency gaps;
-- authorization problems;
-- authentication gaps;
+- auth/authz gaps;
 - security/privacy gaps;
 - timezone/date defects;
-- historical-data inconsistencies;
-- inaccessible UX;
-- confusing UX;
+- history/snapshot inconsistencies;
+- inaccessible/confusing UX;
 - undefined edge cases;
-- undefined failure behavior;
+- undefined failures;
 - scope inconsistencies.
 
-Pay special attention to scheduling semantics such as:
-
-- whether `PENDING` blocks availability;
-- when a time slot becomes unavailable;
-- simultaneous requests for the same interval;
-- price/duration snapshots;
-- service deactivation and historical appointments;
-- rescheduling;
-- cancellation;
+Special scheduling questions include:
+- whether PENDING blocks availability;
+- when a slot becomes unavailable;
+- simultaneous booking requests;
+- price/duration snapshot semantics;
+- service deactivation history;
+- rescheduling/cancellation;
 - manual admin bookings;
 - minimum/maximum booking notice;
-- intervals/breaks;
-- blocked periods;
-- holidays;
-- timezone handling;
+- breaks/holidays/blocked periods;
+- timezone;
 - multiple administrators/professionals if applicable.
 
 ## Finding Format
 
-For each finding use:
-
-- ID: `CLAR-*`
-- severity: `CRITICAL / HIGH / MEDIUM / LOW`
-- related requirement(s)
+Each:
+- ID `CLAR-*`
+- severity `CRITICAL/HIGH/MEDIUM/LOW`
+- related REQ
 - problem
 - impact
-- objective question for the user
-- optional alternatives/tradeoffs
+- user question
+- alternatives/tradeoffs
 
-Questions shown to the user MUST be in `pt-BR`.
-
-Internal proposed project artifacts remain in English.
+Questions to user are in `pt-BR`.
 
 ## Decision Rule
 
 Do not answer unresolved business questions yourself.
 
-After the user answers:
+If multiple safe technical interpretations exist, present them critically and ask only when the decision is product/business-sensitive.
 
-1. produce proposed English content for `docs/clarification.md`;
-2. produce proposed English content for `docs/decisions.md`;
-3. provide exact proposed English amendments to `docs/spec.md`.
+## Critical Self-Review
 
-Never silently rewrite accepted requirements.
+Before delivery:
+- verify every question is necessary;
+- combine duplicates;
+- avoid asking questions answerable from repository evidence;
+- identify hidden assumptions;
+- rank blockers by implementation impact.
 
-## Output to User
+## Output
 
-Explain findings, priorities, and required decisions in `pt-BR`.
+After required user answers, produce proposed English:
+- `docs/clarification.md`
+- `docs/decisions.md`
+- exact amendments to `docs/spec.md`
 
-Do not write to the repository.
+Also update operational memory/handoff proposals.
+
+Do not write to GitHub.

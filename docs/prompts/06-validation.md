@@ -1,123 +1,104 @@
 # G4DNailTime — Stage 6: Analysis / Validation
 
-Read first:
+## Responsibility
 
-- `agent.md`
-- `docs/prompts/_common.md`
-- relevant files under `docs/assistant/`
-- `docs/constitution.md`
-- relevant accepted ADRs
-- `docs/decisions.md`
-- relevant requirements in `docs/spec.md`
-- relevant tasks in `docs/plan.md`
-- `docs/implementation-report.md`
-- affected source and test files
-- user-provided local test/build/typecheck/lint output and/or relevant CI evidence
-
-Your responsibility in this conversation is EXCLUSIVELY:
+Perform EXCLUSIVELY:
 
 `STAGE 6 — ANALYSIS / VALIDATION`
 
 Do not fix production code during this stage.
 
-Corrections must return to Stage 5 and follow strict TDD when behavior changes.
+Corrections return to Stage 5 and follow strict TDD when behavioral.
+
+## Inputs
+
+Read:
+- governing policies;
+- operational memory;
+- Constitution;
+- ADRs;
+- Decisions;
+- relevant REQs;
+- relevant TASKs;
+- implementation report;
+- affected source/tests;
+- user/CI execution evidence.
 
 ## Objective
 
 Audit independently.
 
-Do not trust the implementation report without verifying code, tests, accepted artifacts, and execution evidence.
+Do not trust implementation reports without verifying evidence.
 
 Compare:
 
-`CONSTITUTION x SPECIFICATION x IMPLEMENTATION x TESTS`
+`CONSTITUTION x SPECIFICATION x DECISIONS x IMPLEMENTATION x TESTS x EVIDENCE`
 
 ## Review Areas
 
-Check for:
-
-- missing requirements;
-- partially implemented requirements;
+Check:
+- missing/partial requirements;
 - scope creep;
 - constitutional violations;
-- security defects;
-- authentication defects;
-- authorization defects;
-- input-validation gaps;
+- security/auth/authz;
+- validation;
 - race conditions;
 - scheduling conflicts;
-- concurrency defects;
-- timezone/date defects;
-- transaction/integrity defects;
-- weak tests;
-- missing tests;
-- missing negative/boundary tests;
+- timezone/date;
+- transaction/integrity;
+- weak/missing tests;
+- negative/boundary tests;
 - TDD evidence gaps;
-- loading/error/empty-state defects;
-- accessibility defects;
-- responsiveness defects;
-- TypeScript/lint/build failures;
+- loading/error/empty states;
+- accessibility/responsiveness;
+- TypeScript/lint/build;
 - unverified claims;
-- undocumented technical divergence.
+- undocumented divergence.
 
-## Requirement Classification
+## Classification
 
-For each requirement classify:
+Requirement:
+- PASS
+- PARTIAL
+- FAIL
+- NOT_TESTED
 
-- `PASS`
-- `PARTIAL`
-- `FAIL`
-- `NOT_TESTED`
+Finding severity:
+- CRITICAL
+- HIGH
+- MEDIUM
+- LOW
 
-## Finding Severity
+Improvement class:
+- MANDATORY
+- RECOMMENDED
+- OPTIONAL
+- DEFERRED
 
-For each finding classify:
+## Critical Self-Review
 
-- `CRITICAL`
-- `HIGH`
-- `MEDIUM`
-- `LOW`
-
-## Evidence Rule
-
-Every approval must identify evidence.
-
-Do not accept statements such as:
-
-- "the report says it works";
-- "the developer says tests passed";
-- "it should be fine".
-
-Prefer:
-
-- repository code;
-- tests;
-- user-provided execution output;
-- CI evidence;
-- accepted project artifacts.
+Before final decision:
+- verify evidence for every PASS;
+- challenge whether tests truly cover behavior;
+- search for false positives;
+- search for missing negative paths;
+- verify audit does not invent requirements.
 
 ## Output
 
-Produce proposed English content for:
+Produce proposed English:
+- `docs/audit.md`
 
-`docs/audit.md`
+Final decision:
+- `APPROVED`
+- `REJECTED`
 
-Include:
+If REJECTED:
+- propose corrective TASK IDs linked to failed REQs;
+- route behavioral corrections back to Stage 5/TDD.
 
-- executive summary;
-- requirement-by-requirement result;
-- evidence;
-- failures and risks;
-- missing tests;
-- constitutional violations;
-- mandatory corrections;
-- optional improvements;
-- final decision: `APPROVED` or `REJECTED`.
+Also propose memory/handoff updates and backlog improvements.
 
-If `REJECTED`, propose corrective TASK IDs linked to failed REQ IDs.
+Explain audit result and next action in `pt-BR`.
 
-Behavioral corrections must return to Stage 5 and follow strict TDD.
-
-Then explain the audit result and next permitted action to the user in `pt-BR`.
-
-Do not write to the repository.
+Do not write to GitHub.

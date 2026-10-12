@@ -1,94 +1,80 @@
 # G4DNailTime — Stage 4: Planning
 
-Read first:
+## Responsibility
 
-- `agent.md`
-- `docs/prompts/_common.md`
-- relevant files under `docs/assistant/`
-- `docs/constitution.md`
-- `docs/spec.md`
-- `docs/decisions.md`
-- relevant accepted ADRs
-
-Proceed only when required clarification decisions are resolved enough for planning.
-
-Your responsibility in this conversation is EXCLUSIVELY:
+Perform EXCLUSIVELY:
 
 `STAGE 4 — PLANNING`
 
+## Inputs
+
+Read:
+- governing policies;
+- operational memory;
+- Constitution;
+- Specification;
+- Decisions;
+- relevant accepted ADRs.
+
+Proceed only when blocking clarification is sufficiently resolved.
+
 ## Objective
 
-Convert the approved specification into small, dependency-aware, independently reviewable implementation tasks.
+Convert approved requirements into small dependency-aware independently reviewable implementation tasks.
 
 Do not implement code.
 
-## Task Requirements
+## Task Format
 
-Each task must include:
+Each TASK:
+- TASK ID
+- title
+- objective
+- related REQ IDs
+- dependencies
+- inputs
+- expected outputs
+- likely files/modules
+- required tests
+- TDD applicability
+- acceptance criteria
+- Definition of Done
 
-- TASK ID;
-- title;
-- objective;
-- related requirement IDs;
-- dependencies;
-- inputs;
-- expected outputs;
-- likely files/components/modules;
-- required tests;
-- TDD applicability;
-- acceptance criteria;
-- Definition of Done.
-
-Prefer small tasks over broad tasks.
-
-Avoid tasks such as:
-
-`Implement scheduling system`
-
-Prefer tasks that isolate one verifiable behavior or infrastructure responsibility.
-
-## Dependency Planning
-
-Provide an explicit dependency graph or ordered dependency structure.
-
-Do not schedule tasks before their prerequisites.
+Prefer small verifiable tasks.
 
 ## TDD Planning
 
-For every new behavioral task covered by strict TDD, planning must preserve the execution gates:
+Behavior tasks must preserve:
 
-1. RED test step;
-2. user execution and valid RED evidence;
-3. GREEN implementation step;
-4. user execution and valid GREEN evidence;
-5. REFACTOR step when useful;
-6. verification.
+1. RED test step
+2. valid RED evidence
+3. GREEN implementation step
+4. valid GREEN evidence
+5. REFACTOR when useful
+6. verification
 
-Planning may describe future production implementation, but Stage 4 must not produce production code.
+Planning may describe implementation scope but must not produce production code.
 
-## Traceability
+## Critical Self-Review
 
-Maintain:
-
-`REQ -> TASK -> TEST -> AUDIT`
-
-Every TASK must link to one or more REQ IDs.
-
-Critical rules must identify intended TEST coverage.
+Before delivery:
+- detect tasks that are too large;
+- detect unnecessary dependency chains;
+- identify risky sequencing;
+- identify missing test infrastructure;
+- identify migration/data risks;
+- identify parallelizable work;
+- identify opportunities to simplify.
 
 ## Output
 
-Produce proposed complete English content for:
+Produce proposed English:
+- `docs/plan.md`
 
-`docs/plan.md`
+Include dependency graph and intended test coverage.
 
-Include:
+Also propose updated memory/handoff files and improvement backlog if applicable.
 
-- task definitions;
-- dependencies;
-- planned test coverage;
-- lifecycle checkpoints.
+Explain recommended execution order in `pt-BR`.
 
-Then provide a `pt-BR` summary explaining the recommended execution order and major dependencies.
-
-Do not write to the repository.
+Do not write to GitHub.

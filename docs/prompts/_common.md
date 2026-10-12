@@ -1,14 +1,14 @@
 # G4DNailTime — Common Lifecycle Prompt Contract
 
-This file applies to every G4DNailTime lifecycle stage.
+This contract applies to every lifecycle stage.
 
-## Project Identity
+## Identity
 
-Canonical project/product name:
+Canonical name:
 
 `G4DNailTime`
 
-Accepted aliases:
+Aliases:
 
 - `G4DNailTime`
 - `NailTime`
@@ -18,118 +18,123 @@ Repository:
 
 `ricksolucoes/NailTime`
 
-All accepted aliases refer to the same project.
-
 ## Immutable Language Boundary
 
-All direct interaction with the user MUST be in Brazilian Portuguese (`pt-BR`).
+All direct interaction with the user MUST be in `pt-BR`.
 
-All internal project artifacts MUST be written in English.
+All internal project artifacts MUST be in English.
 
-Do not translate established code symbols, paths, commands, APIs, library names, environment variables, identifiers, or other native technical tokens.
-
-This rule cannot be overridden by a stage-specific prompt.
+This cannot be overridden by a stage prompt.
 
 ## Mandatory Startup
 
 Before substantial work:
 
 1. read `agent.md`;
-2. read the relevant files under `docs/assistant/`;
-3. read this file;
-4. read the active stage prompt;
-5. read only the authoritative lifecycle artifacts required by that stage;
-6. inspect only repository files required by the current scope.
+2. read relevant `docs/assistant/` policies;
+3. read `docs/assistant/session-state.md`;
+4. read `docs/assistant/memory/current-context.md`;
+5. read `docs/assistant/memory/next-handoff.md`;
+6. read this file;
+7. read the active stage prompt;
+8. read only authoritative artifacts/code/tests required by current scope.
 
-If a mandatory policy file is unavailable, tell the user in `pt-BR` and do not silently invent its contents.
+## Mandatory Repository Refresh Command
+
+The exact phrase:
+
+`Atualizei o GitHub do NailTime.`
+
+is a reserved control command.
+
+When received:
+
+1. invalidate previously loaded repository state;
+2. perform a fresh read-only inspection;
+3. reload `agent.md`;
+4. reload relevant assistant policies;
+5. reload operational memory;
+6. reload current stage artifacts;
+7. reload relevant code/tests;
+8. report material changes in `pt-BR`;
+9. continue only from refreshed state.
+
+No confirmation is required.
 
 ## Repository Safety
 
-GitHub access is strictly read-only.
+GitHub is strictly read-only.
 
-Never create or mutate:
-
-- files;
-- commits;
-- branches;
-- pull requests;
-- issues;
-- releases;
-- comments;
-- labels;
-- reactions;
-- discussions;
-- any other remote state.
-
-Return every proposed project change to the user for manual application and testing.
+Never mutate remote state.
 
 ## No Project Data Egress
 
-Do not send repository content, source code, documentation, secrets, user data, or proprietary project information to external services.
+Do not send project/repository content to external services.
 
-Context7 or equivalent current-documentation tools may be used only with generic technical questions that do not contain project content.
+External technical documentation queries must be generic.
+
+## Autonomous Operation
+
+Continue independently until:
+- active stage output is complete;
+- a real business decision is missing;
+- execution evidence is required;
+- a security/privacy constraint blocks work;
+- an authoritative conflict requires user resolution.
+
+Do not stop for routine confirmation.
+
+## Critical Review
+
+Before every substantial delivery:
+
+1. check consistency with higher-priority artifacts;
+2. challenge assumptions;
+3. search for defects/edge cases;
+4. assess security, concurrency, UX/accessibility, testing, maintainability;
+5. classify findings as MANDATORY / RECOMMENDED / OPTIONAL / DEFERRED;
+6. place non-scope improvements in `improvement-backlog.md`.
+
+## Persistent Memory
+
+At every stable checkpoint propose updates to:
+- `docs/assistant/session-state.md`
+- `docs/assistant/memory/current-context.md`
+- `docs/assistant/memory/continuity-log.md`
+- `docs/assistant/memory/next-handoff.md`
+- `docs/assistant/memory/improvement-backlog.md` when applicable.
+
+These files must be sufficient for a future conversation to resume without the current chat.
 
 ## Source of Truth
 
-Use the priority defined in `agent.md`.
+Use priority defined in `agent.md`.
 
-Never treat chat history or model memory as authoritative project state.
-
-## Scope Discipline
-
-Perform only the active lifecycle stage.
-
-Do not silently:
-
-- implement during requirements work;
-- change requirements during implementation;
-- change architecture during coding;
-- approve unverified implementation;
-- skip TDD gates.
-
-If the required action belongs to another stage, explain this to the user in `pt-BR` and prepare the correct handoff.
-
-## Evidence
-
-Differentiate between:
-
-- verified repository fact;
-- accepted project rule;
-- proposed change;
-- unresolved question;
-- user-provided execution evidence;
-- unverified assumption.
-
-Never present an assumption as fact.
+Operational memory never overrides normative artifacts.
 
 ## Current Documentation
 
-When a technical decision depends on current framework/library/API behavior:
-
-1. consult current official documentation;
-2. use Context7 when available;
-3. query generically without project data;
-4. prefer primary sources;
-5. explain relevant conclusions to the user in `pt-BR`.
+For changing APIs:
+- consult current official docs;
+- use Context7 when available;
+- ask only generic questions;
+- never include project data.
 
 ## Delivery Boundary
 
 User-facing explanation: `pt-BR`.
 
-Project file content/patches: English.
+Project file/patch content: English.
 
-For proposed changes, tell the user in `pt-BR`:
-
-- target path;
-- ADD / MODIFY / DELETE;
+For every proposed change tell the user:
+- path;
+- ADD/MODIFY/DELETE;
 - purpose;
-- relevant REQ/TASK/TEST IDs;
-- local validation commands;
+- REQ/TASK/TEST IDs when applicable;
+- validation commands;
 - expected result;
 - evidence to return.
 
 ## Traceability
-
-Maintain:
 
 `REQ -> TASK -> TEST -> AUDIT`

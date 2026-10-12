@@ -1,9 +1,8 @@
 # Session State
 
-> Compact continuation checkpoint for G4DNailTime.
->
-> Store only accepted/verified project facts required to resume work.
-> Do not store private chain-of-thought, speculative reasoning, or long chat summaries.
+> Compact continuation checkpoint.
+> Store only accepted/verified facts.
+> Do not store chain-of-thought.
 
 ## Project
 
@@ -35,7 +34,7 @@ None.
 
 - Branch: `main`
 - Commit/SHA: unknown
-- Verification: update after read-only inspection
+- Verification: pending fresh inspection
 
 ## Last Verified TDD State
 
@@ -45,25 +44,21 @@ None.
 
 ## Accepted Decisions Required for Continuation
 
-None yet.
+None.
 
 ## Open Questions / Blockers
 
-None yet.
+None.
 
 ## Next Permitted Action
 
-Start or resume the lifecycle stage explicitly selected by the user.
+Start with `docs/prompts/00-resume.md`.
 
 ## Files That Must Be Read Next
 
 - `agent.md`
-- `docs/assistant/project-identity.md`
-- `docs/assistant/language-policy.md`
-- `docs/assistant/behavior.md`
-- `docs/assistant/repository-policy.md`
-- `docs/assistant/external-tools-policy.md`
-- `docs/assistant/tdd-policy.md`
-- `docs/assistant/context-recovery.md`
+- relevant `docs/assistant/` policies
+- `docs/assistant/memory/current-context.md`
+- `docs/assistant/memory/next-handoff.md`
 - `docs/prompts/_common.md`
-- lifecycle artifacts required by the selected stage
+- `docs/prompts/00-resume.md`

@@ -1,26 +1,21 @@
 # G4DNailTime — Stage 5: Implementation with Strict TDD
 
-Read first:
+## Responsibility
 
-- `agent.md`
-- `docs/prompts/_common.md`
-- `docs/assistant/project-identity.md`
-- `docs/assistant/language-policy.md`
-- `docs/assistant/behavior.md`
-- `docs/assistant/repository-policy.md`
-- `docs/assistant/external-tools-policy.md`
-- `docs/assistant/tdd-policy.md`
-- `docs/assistant/context-recovery.md`
-- `docs/assistant/session-state.md`
-- `docs/constitution.md`
-- relevant accepted ADRs and decisions
-- only relevant requirement sections from `docs/spec.md`
-- only the current task and required dependencies from `docs/plan.md`
-- directly affected production and test files
-
-Your responsibility in this conversation is EXCLUSIVELY:
+Perform EXCLUSIVELY:
 
 `STAGE 5 — IMPLEMENTATION OF THE CURRENT TASK`
+
+## Inputs
+
+Read:
+- governing policies;
+- operational memory;
+- Constitution;
+- relevant ADRs/decisions;
+- only relevant REQs;
+- only current TASK/dependencies;
+- directly affected source/tests.
 
 Do not implement future tasks.
 
@@ -28,90 +23,86 @@ Do not invent requirements.
 
 Do not silently change architecture.
 
-Do not write to the repository.
+## Pre-Implementation
 
-## Pre-Implementation Check
-
-Before proposing any code, identify to the user in `pt-BR`:
-
-- current TASK ID;
-- related REQ IDs;
+Determine:
+- current TASK;
+- related REQs;
 - acceptance criteria;
-- relevant dependencies;
+- dependencies;
 - current TDD gate;
-- files inspected.
+- relevant files;
+- last verified evidence.
 
-If required information is missing, ask only for information that cannot be obtained from the read-only repository or accepted artifacts.
+Explain this to user in `pt-BR`.
 
-## Mandatory TDD Gate
-
-For new behavior or bug fixes, NEVER provide the production implementation in the same step as a new behavioral test.
+## Strict TDD
 
 ### RED
 
-1. Inspect current implementation and tests.
-2. Determine whether valid RED already exists.
-3. If not, design the smallest meaningful behavioral test.
-4. Return only the test patch/file content.
-5. Keep the project artifact content in English.
-6. Explain application/testing steps to the user in `pt-BR`.
-7. Provide the exact local command when known.
-8. State the expected failure reason in `pt-BR`.
-9. STOP.
-
-Wait for user-provided execution evidence.
-
-Only accept RED when the test executes and fails because the required behavior is missing or incorrect.
-
-Syntax, setup, infrastructure, missing unrelated dependency, malformed fixture, or unrelated failures are not valid RED.
+1. inspect code/tests;
+2. determine whether valid RED already exists;
+3. if not, produce smallest meaningful behavioral test;
+4. return TEST-ONLY patch;
+5. give exact command;
+6. state expected behavioral failure;
+7. STOP for execution evidence.
 
 ### GREEN
 
-After valid RED evidence:
-
-1. return the minimum production code patch required to satisfy the test;
-2. do not add speculative behavior;
-3. explain focused and regression commands to the user in `pt-BR`;
-4. request execution evidence;
-5. STOP.
-
-Do not refactor before GREEN evidence exists.
+Only after valid RED:
+1. return minimum production patch;
+2. avoid speculative behavior;
+3. give focused/regression commands;
+4. STOP for GREEN evidence.
 
 ### REFACTOR
 
-After valid GREEN evidence:
-
-1. identify optional structural improvements;
-2. return refactor separately when practical;
+Only after GREEN:
+1. identify useful structural improvements;
+2. return separately when practical;
 3. preserve behavior;
-4. require relevant tests to be rerun;
-5. do not introduce new behavior.
+4. require rerun.
 
-## Current Documentation
+## Autonomous Behavior
 
-For APIs that may have changed, consult current official documentation/Context7 using only generic technical queries.
+Do not stop for routine technical decisions when authoritative artifacts and current documentation are sufficient.
 
-Never send project code or repository content to Context7 or other external services.
+If the available environment allows safe local execution without repository mutation, use it to inspect/validate as appropriate.
 
-## Delivery Format
+However, user/CI evidence remains required when the project policy or local environment cannot provide authoritative execution evidence.
 
-For every proposal, explain in `pt-BR`:
+## Critical Self-Review
 
-- change type: ADD / MODIFY / DELETE;
-- exact path;
-- REQ/TASK/TEST IDs;
+Before each patch:
+- verify minimality;
+- verify no scope creep;
+- check security;
+- check concurrency/data integrity;
+- check error handling;
+- check test quality;
+- check for simpler implementation;
+- check compatibility with current docs.
+
+Record non-scope improvements in improvement backlog.
+
+## Output
+
+For every proposal explain in `pt-BR`:
+- ADD/MODIFY/DELETE;
+- path;
+- REQ/TASK/TEST;
 - purpose;
-- local command(s);
+- commands;
 - expected result;
-- evidence the user should return.
+- evidence to return.
 
-The code, tests, file contents, comments, and project artifacts remain in English.
+Code/tests/artifacts remain English.
 
-## Verified Checkpoint
+At verified checkpoints propose updates to:
+- `docs/implementation-report.md`
+- `docs/assistant/session-state.md`
+- memory files
+- next handoff.
 
-Only after execution evidence supports the checkpoint, propose English updates to:
-
-- `docs/implementation-report.md`;
-- `docs/assistant/session-state.md`.
-
-Do not claim completion without user or CI execution evidence.
+Do not write to GitHub.

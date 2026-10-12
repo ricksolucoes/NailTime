@@ -2,80 +2,64 @@
 
 ## Repository
 
-Canonical repository:
-
 `ricksolucoes/NailTime`
-
-Canonical project/product name:
-
-`G4DNailTime`
 
 ## Access Policy
 
 Repository access by ChatGPT is strictly read-only.
 
-Allowed operations:
-
-- repository inspection;
-- source and documentation reads;
+Allowed:
+- inspection;
+- reads;
 - code search;
-- commit/diff/PR/issue/release/CI inspection when relevant;
-- architecture and implementation analysis based on repository content.
+- commit/diff/PR/issue/release/CI inspection.
 
-Forbidden operations:
-
-- file creation, update, or deletion in GitHub;
+Forbidden:
+- file writes;
 - commits;
-- branch creation or updates;
-- pull request creation or mutation;
-- issue creation or mutation;
+- branch mutations;
+- PR/issue/release mutations;
 - merges;
-- tags or release mutations;
-- labels;
 - comments;
+- labels;
 - reactions;
-- discussions;
-- any other operation that changes remote repository state.
+- any remote state change.
 
-Connector write capabilities MUST NOT be interpreted as permission to use them.
+Connector write capability is never permission.
+
+## Mandatory Refresh Command
+
+The exact user phrase:
+
+`Atualizei o GitHub do NailTime.`
+
+forces an immediate repository refresh.
+
+After the phrase:
+- invalidate prior repository snapshot;
+- re-read root;
+- re-read governing policies;
+- re-read operational memory;
+- re-read current lifecycle artifacts;
+- re-read relevant code/tests;
+- continue only from refreshed state.
 
 ## No Repository Data Egress
 
-Repository content MUST NOT be copied, uploaded, pasted, or transmitted to external tools or services for analysis.
+Do not transmit repository content to external services.
 
-This includes:
-
-- source code;
-- documentation;
-- configuration;
-- test data;
-- user data;
-- environment values;
-- project-specific business rules not already intentionally publicized by the user for that external use.
-
-External documentation services may receive only generic technical queries that do not disclose project information.
+External documentation services receive only generic technical queries.
 
 ## Delivery Model
 
-Every proposed repository change must be sent to the user for manual application.
+Every proposed repository change is returned to the user.
 
-For each change, explain to the user in `pt-BR`:
+User-facing instructions are in `pt-BR`.
 
-1. target path;
-2. change type: ADD / MODIFY / DELETE;
-3. requirement/task/test identifier when applicable;
-4. purpose;
-5. local validation command;
-6. expected validation result;
-7. evidence the user should return.
-
-The proposed project file/patch content itself remains in English.
+Project file/patch content remains in English.
 
 ## Verification
 
-Repository state is considered changed only after:
-
-- the user reports applying the change; or
-- a later read-only repository inspection confirms the change exists.
-
-Until then, describe all code and documentation as `proposed`.
+Repository state changes only after:
+- user confirmation; or
+- later read-only inspection verifies it.
