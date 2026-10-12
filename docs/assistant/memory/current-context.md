@@ -11,19 +11,19 @@
 
 ## Current Lifecycle Stage
 
-`NOT_STARTED`
+`STAGE_1_COMPLETE_PENDING_REPOSITORY_VERIFICATION`
 
 ## Current Objective
 
-Initialize or resume the project lifecycle using `docs/prompts/00-resume.md`.
+Verify the manually applied accepted Constitution, then begin Specification only if the repository confirms Stage 1 completion.
 
 ## Active Scope
 
-None.
+Stage 1 Constitution acceptance and transition verification.
 
 ## Active Requirements
 
-None.
+None. Stage 2 has not started.
 
 ## Active Tasks
 
@@ -35,29 +35,32 @@ None.
 
 ## Accepted Decisions Relevant Now
 
-None.
+- Canonical product name: `G4DNailTime`.
+- Repository: `ricksolucoes/NailTime`.
+- GitHub access for the assistant is read-only.
+- User interaction is `pt-BR`.
+- Internal project artifacts are English.
+- Baseline stack family: React + TypeScript + Vite, Node.js + TypeScript, PostgreSQL.
+- Mandatory lifecycle: Constitution -> Specification -> Clarification -> Planning -> Implementation with strict TDD -> Analysis / Validation.
+- Strict TDD sequence: `REQ -> TASK -> TEST -> RED -> GREEN -> REFACTOR -> AUDIT`.
+- Constitution content has been explicitly approved by the user if and only if this accepted package is manually applied.
 
-## Repository Synchronization
+## Constitution State
+
+- Target file: `docs/constitution.md`
+- Intended applied status: `ACCEPTED`
+- Repository verification: pending
+
+## Last Verified Repository Snapshot
 
 - Branch: `main`
-- Last verified SHA: `UNKNOWN`
-- Current HEAD SHA: `UNKNOWN`
-- Last sync mode: `BASELINE_PENDING`
-- Last sync timestamp: `UNKNOWN`
-- Last compared range: `N/A`
-
-## Last Delta Impact
-
-- Governance changes: none recorded
-- Requirement changes: none recorded
-- Planning changes: none recorded
-- Implementation changes: none recorded
-- Operational memory changes: none recorded
-- Unrelated changes ignored: none recorded
+- Commit/SHA before manual Stage 1 application: `c2530891f0210cbad82eca985cd3332e46d4341c`
+- Verified date: `2026-10-12`
+- At that snapshot, `docs/constitution.md` was absent.
 
 ## Last Verified Execution Evidence
 
-None.
+Repository inspection only. Implementation has not started.
 
 ## Current TDD Gate
 
@@ -65,16 +68,19 @@ None.
 
 ## Current Blockers
 
-None.
+Fresh read-only repository verification after the accepted Stage 1 files are manually applied.
 
 ## Next Permitted Action
 
-Run the autonomous resume entrypoint, synchronize repository state, and determine the correct lifecycle stage.
+Refresh the authoritative repository. If Constitution acceptance is verified, load Stage 2 and create only Specification-stage artifacts.
 
 ## Required Files for Continuation
 
 - `agent.md`
-- `docs/assistant/repository-sync.md`
+- `docs/assistant/session-state.md`
+- `docs/assistant/memory/current-context.md`
+- `docs/assistant/memory/next-handoff.md`
 - `docs/prompts/_common.md`
 - `docs/prompts/00-resume.md`
-- relevant assistant policies
+- `docs/constitution.md`
+- `docs/prompts/02-specification.md` after acceptance verification

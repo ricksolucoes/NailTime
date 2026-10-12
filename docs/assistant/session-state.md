@@ -12,15 +12,15 @@
 
 ## Lifecycle Stage
 
-`NOT_STARTED`
+`STAGE_1_COMPLETE_PENDING_REPOSITORY_VERIFICATION`
 
 ## Current Scope
 
-None.
+Constitution acceptance has been recorded in the proposed file set. A fresh read-only repository verification is required before Stage 2 starts.
 
 ## Active Requirement IDs
 
-None.
+None. Functional requirements have not been created yet.
 
 ## Active Task IDs
 
@@ -30,20 +30,18 @@ None.
 
 None.
 
-## Repository Synchronization State
+## Last Verified Repository State
 
 - Branch: `main`
-- Last verified SHA: `UNKNOWN`
-- Current HEAD SHA: `UNKNOWN`
-- Sync mode: `BASELINE_PENDING`
-- Last verified at: `UNKNOWN`
+- Commit/SHA before manual Stage 1 application: `c2530891f0210cbad82eca985cd3332e46d4341c`
+- Verification date: `2026-10-12`
+- At that verified snapshot, `docs/constitution.md` was absent.
 
-## Last Repository Delta
+## Constitution State
 
-- Commit range: `N/A`
-- Changed files: `UNKNOWN`
-- Relevant files reloaded: `UNKNOWN`
-- Unrelated changes ignored: `UNKNOWN`
+- Proposed repository status after manual application: `ACCEPTED`
+- User approval is required before applying this accepted package.
+- Fresh repository verification remains mandatory.
 
 ## Last Verified TDD State
 
@@ -51,23 +49,21 @@ None.
 - GREEN: not started
 - REFACTOR: not started
 
-## Accepted Decisions Required for Continuation
-
-None.
-
 ## Open Questions / Blockers
 
-None.
+- Fresh read-only verification of the manually applied accepted Constitution.
 
 ## Next Permitted Action
 
-Start with `docs/prompts/00-resume.md`.
+After the user applies this accepted file set and reports the repository update, refresh `ricksolucoes/NailTime`. If `docs/constitution.md` is present with `Status: ACCEPTED` and no higher-priority conflict exists, load `docs/prompts/02-specification.md` and begin Stage 2.
 
 ## Files That Must Be Read Next
 
 - `agent.md`
-- `docs/assistant/repository-sync.md`
+- relevant `docs/assistant/` policies
+- `docs/constitution.md`
 - `docs/assistant/memory/current-context.md`
 - `docs/assistant/memory/next-handoff.md`
 - `docs/prompts/_common.md`
 - `docs/prompts/00-resume.md`
+- `docs/prompts/02-specification.md` after acceptance verification
