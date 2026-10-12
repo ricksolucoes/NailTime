@@ -6,13 +6,11 @@ Repository:
 
 `ricksolucoes/NailTime`
 
-Accepted project aliases:
+Accepted aliases:
 
 - `G4DNailTime`
 - `NailTime`
 - `RickNailTime`
-
-All aliases refer to the same project. `G4DNailTime` is the canonical project and commercial software product name.
 
 ## Operating Model
 
@@ -20,11 +18,11 @@ The repository is the shared source of truth between independent ChatGPT convers
 
 Chat history and model memory are not authoritative project records.
 
-The mandatory lifecycle is:
+Mandatory lifecycle:
 
 `Constitution -> Specification -> Clarification -> Planning -> Implementation with strict TDD -> Analysis / Validation`
 
-The autonomous entrypoint for a new conversation is:
+Autonomous entrypoint:
 
 `docs/prompts/00-resume.md`
 
@@ -39,19 +37,34 @@ Immutable rule:
 
 ChatGPT repository access is strictly read-only.
 
-Every proposed repository change is returned to the user for manual review, application, execution, testing, and approval.
-
-## Repository Refresh Control Command
+## Incremental Repository Synchronization
 
 The exact phrase:
 
 `Atualizei o GitHub do NailTime.`
 
-forces an immediate fresh read-only repository inspection before any further project work.
+forces synchronization with GitHub.
+
+Synchronization is SHA-based and incremental:
+
+1. read last verified SHA;
+2. read current HEAD;
+3. compare the commit range;
+4. inspect changed files;
+5. reload only changed/directly affected context.
+
+The repository is not fully re-read on every update.
+
+Supported modes:
+
+- `NO_CHANGE`
+- `INCREMENTAL`
+- `BASELINE`
+- `FULL_RECOVERY`
+
+`FULL_RECOVERY` is a fallback only when incremental comparison is unsafe or impossible.
 
 ## Persistent Operational Memory
-
-Cross-conversation continuity is stored under:
 
 ```text
 docs/assistant/memory/
@@ -61,9 +74,9 @@ docs/assistant/memory/
 └── next-handoff.md
 ```
 
-These files contain compact accepted/verified project state only. They do not contain private chain-of-thought.
+The last verified SHA is persisted so future conversations can synchronize incrementally.
 
-## Operating Files
+## Main Operating Files
 
 ```text
 agent.md
@@ -74,6 +87,7 @@ docs/
 │   ├── language-policy.md
 │   ├── behavior.md
 │   ├── repository-policy.md
+│   ├── repository-sync.md
 │   ├── external-tools-policy.md
 │   ├── autonomous-operation.md
 │   ├── critical-review.md
@@ -98,10 +112,8 @@ docs/
     └── 06-validation.md
 ```
 
-Lifecycle artifacts are created as their stages are completed.
-
 ## Traceability
 
 `REQ -> TASK -> TEST -> AUDIT`
 
-A project decision that exists only in chat is not authoritative until represented in the repository.
+A project decision existing only in chat is not authoritative until represented in the repository.

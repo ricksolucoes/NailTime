@@ -30,11 +30,20 @@ None.
 
 None.
 
-## Last Verified Repository State
+## Repository Synchronization State
 
 - Branch: `main`
-- Commit/SHA: unknown
-- Verification: pending fresh inspection
+- Last verified SHA: `UNKNOWN`
+- Current HEAD SHA: `UNKNOWN`
+- Sync mode: `BASELINE_PENDING`
+- Last verified at: `UNKNOWN`
+
+## Last Repository Delta
+
+- Commit range: `N/A`
+- Changed files: `UNKNOWN`
+- Relevant files reloaded: `UNKNOWN`
+- Unrelated changes ignored: `UNKNOWN`
 
 ## Last Verified TDD State
 
@@ -57,7 +66,7 @@ Start with `docs/prompts/00-resume.md`.
 ## Files That Must Be Read Next
 
 - `agent.md`
-- relevant `docs/assistant/` policies
+- `docs/assistant/repository-sync.md`
 - `docs/assistant/memory/current-context.md`
 - `docs/assistant/memory/next-handoff.md`
 - `docs/prompts/_common.md`

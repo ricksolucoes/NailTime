@@ -8,9 +8,16 @@
 ### `<YYYY-MM-DD> — <checkpoint>`
 
 - Lifecycle stage:
-- REQ/TASK/TEST:
-- Repository snapshot:
-- Verified evidence:
+- Active REQ/TASK/TEST:
+- Branch:
+- Previous verified SHA:
+- Current verified SHA:
+- Synchronization mode:
+- Compared range:
+- Changed files/areas:
+- Relevant files reloaded:
+- Unrelated changes ignored:
+- Verified execution evidence:
 - Decision/result:
 - Next action:
 

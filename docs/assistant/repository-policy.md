@@ -27,22 +27,21 @@ Forbidden:
 
 Connector write capability is never permission.
 
-## Mandatory Refresh Command
+## Synchronization Policy
+
+Repository refresh is incremental by default.
+
+Read and obey:
+
+`docs/assistant/repository-sync.md`
 
 The exact user phrase:
 
 `Atualizei o GitHub do NailTime.`
 
-forces an immediate repository refresh.
+forces synchronization from the last verified SHA to current HEAD.
 
-After the phrase:
-- invalidate prior repository snapshot;
-- re-read root;
-- re-read governing policies;
-- re-read operational memory;
-- re-read current lifecycle artifacts;
-- re-read relevant code/tests;
-- continue only from refreshed state.
+It does not require loading the entire repository.
 
 ## No Repository Data Egress
 

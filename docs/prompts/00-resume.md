@@ -4,58 +4,72 @@ Use this prompt when starting a new conversation or resuming after context exhau
 
 ## Mission
 
-Reconstruct the current project state from the repository and continue the correct lifecycle work without depending on prior chat memory or the original supervising conversation.
+Reconstruct the current project state from repository evidence and continue the correct lifecycle work without depending on prior chat memory.
 
-## Mandatory Startup
+## Step 1 — Load Minimal Governance
 
-Read in this order:
+Read:
 
 1. `agent.md`
-2. `docs/assistant/project-identity.md`
-3. `docs/assistant/language-policy.md`
-4. `docs/assistant/behavior.md`
-5. `docs/assistant/repository-policy.md`
-6. `docs/assistant/external-tools-policy.md`
-7. `docs/assistant/autonomous-operation.md`
-8. `docs/assistant/critical-review.md`
-9. `docs/assistant/tdd-policy.md`
-10. `docs/assistant/context-recovery.md`
-11. `docs/assistant/session-state.md`
-12. `docs/assistant/memory/current-context.md`
-13. `docs/assistant/memory/continuity-log.md`
-14. `docs/assistant/memory/improvement-backlog.md`
-15. `docs/assistant/memory/next-handoff.md`
-16. `docs/prompts/_common.md`
+2. `docs/assistant/repository-policy.md`
+3. `docs/assistant/repository-sync.md`
+4. `docs/assistant/session-state.md`
+5. `docs/assistant/memory/current-context.md`
+6. `docs/assistant/memory/next-handoff.md`
+7. `docs/prompts/_common.md`
 
-Then inspect repository root and lifecycle artifacts.
+Load other assistant policies only when relevant to the detected work.
 
-## Determine Current Stage
+## Step 2 — Synchronize Repository Incrementally
+
+Read:
+- current default/current branch;
+- current HEAD SHA;
+- last verified branch/SHA from operational memory.
+
+Select:
+
+### NO_CHANGE
+If current HEAD equals last verified SHA.
+
+### INCREMENTAL
+If previous SHA exists and a safe comparison is possible.
+
+Inspect:
+
+`LAST_VERIFIED_SHA..CURRENT_HEAD`
+
+Then:
+- enumerate changed files;
+- classify impact;
+- reload only changed and directly affected context.
+
+### BASELINE
+If no previous SHA is available.
+
+Inspect only enough repository structure/governance/lifecycle state to establish the first verified snapshot.
+
+### FULL_RECOVERY
+Only when incremental comparison is unsafe/impossible.
+
+Do not read the whole repository merely because a new conversation started.
+
+## Step 3 — Determine Current Stage
 
 Infer the active lifecycle stage from authoritative artifacts:
 
-1. If `docs/constitution.md` is absent or not accepted:
-   - use Stage 1.
+1. missing/unaccepted Constitution -> Stage 1;
+2. Constitution exists, Specification missing/incomplete -> Stage 2;
+3. unresolved clarification -> Stage 3;
+4. clarified but plan missing/incomplete -> Stage 4;
+5. incomplete planned implementation work -> Stage 5;
+6. completed implementation scope ready for audit -> Stage 6.
 
-2. If Constitution exists but `docs/spec.md` is absent/incomplete:
-   - use Stage 2.
+Operational memory helps locate scope but cannot override normative artifacts.
 
-3. If Specification exists but unresolved clarification remains:
-   - use Stage 3.
+## Step 4 — Load Active Stage
 
-4. If clarification/decisions are resolved but `docs/plan.md` is absent/incomplete:
-   - use Stage 4.
-
-5. If plan contains incomplete implementation tasks:
-   - use Stage 5 for the next permitted TASK.
-
-6. If an implementation scope is complete and ready for independent audit:
-   - use Stage 6.
-
-Operational memory may help locate the current scope but cannot override normative artifacts.
-
-## Stage Loading
-
-After determining the stage, read the corresponding prompt:
+Read only the corresponding prompt:
 
 - Stage 1: `docs/prompts/01-constitution.md`
 - Stage 2: `docs/prompts/02-specification.md`
@@ -64,13 +78,13 @@ After determining the stage, read the corresponding prompt:
 - Stage 5: `docs/prompts/05-implementation.md`
 - Stage 6: `docs/prompts/06-validation.md`
 
-Then continue according to that stage.
+Then load only artifacts/code/tests required by that stage and active scope.
 
 ## Autonomous Requirement
 
-Do not ask the user which stage to run if the repository state makes it determinable.
+Do not ask the user which stage to run when repository state makes it determinable.
 
-Do not ask the user to restate prior context that exists in the repository.
+Do not ask the user to restate repository information.
 
 Ask only for real blockers.
 
@@ -78,9 +92,10 @@ Ask only for real blockers.
 
 Before continuing:
 - detect contradictions;
-- verify stale memory against normative files;
+- validate operational memory against normative artifacts;
 - identify missing artifacts;
-- identify unsafe/inconsistent next actions.
+- identify unsafe next actions;
+- identify stale scope caused by the latest diff.
 
 ## Output to User
 
@@ -88,8 +103,13 @@ In `pt-BR`, briefly report:
 
 - detected lifecycle stage;
 - current scope;
-- active REQ/TASK/TEST if any;
-- repository state used;
+- active REQ/TASK/TEST;
+- previous verified SHA;
+- current HEAD SHA;
+- synchronization mode;
+- materially changed areas;
+- context actually reloaded;
+- unrelated changes ignored;
 - blockers;
 - next action.
 
@@ -97,4 +117,4 @@ Then continue the active stage autonomously.
 
 ## Continuity
 
-At each stable checkpoint, propose updated operational memory and next handoff files so another conversation can continue.
+At stable checkpoints propose updated memory/handoff files with the newly verified SHA.
